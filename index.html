@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>萌掌心 PawHeart 寵物生活館 | 毛孩精緻生活與草本呵護</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              cream: '#FAF6F0',
+              creamDark: '#F3ECE1',
+              sand: '#E6DCBA',
+              coffee: '#6B4E3D',
+              darkCoffee: '#422E23',
+              sage: '#52796F',
+              sageLight: '#E8EFE9',
+              sageDark: '#354F52',
+              warmOrange: '#E76F51',
+              warmOrangeHover: '#D45D3F',
+              softYellow: '#F4A261'
+            }
+          },
+          fontFamily: {
+            sans: ['"Noto Sans TC"', 'Quicksand', 'sans-serif'],
+            display: ['Quicksand', '"Noto Sans TC"', 'sans-serif']
+          },
+          boxShadow: {
+            soft: '0 10px 25px -5px rgba(107, 78, 61, 0.08), 0 8px 10px -6px rgba(107, 78, 61, 0.04)',
+            card: '0 4px 20px rgba(0, 0, 0, 0.05)',
+            elevated: '0 20px 35px -10px rgba(66, 46, 35, 0.12)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAF6F0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D7C4B7;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #B89F8F;
+    }
+    .badge-pulse {
+      animation: pulse-dot 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.15); opacity: 0.9; }
+    }
+  </style>
+</head>
+<body class="bg-brand-cream text-brand-darkCoffee font-sans antialiased min-h-screen flex flex-col selection:bg-brand-sageLight selection:text-brand-sageDark">
+
+  <!-- ================= 1. 置頂導覽列 (Navbar) ================= -->
+  <header id="main-header" class="sticky top-0 z-40 bg-brand-cream/90 backdrop-blur-md transition-all duration-300 border-b border-brand-creamDark shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo 與品牌名稱 -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-sage to-emerald-500 flex items-center justify-center text-white shadow-md transform group-hover:scale-105 transition-transform duration-300">
+            <i class="fa-solid fa-paw text-2xl"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xl sm:text-2xl font-black tracking-tight text-brand-darkCoffee font-display">萌掌心</span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-brand-sage/10 text-brand-sage border border-brand-sage/20 hidden sm:inline-block">PawHeart</span>
+            </div>
+            <p class="text-[11px] text-brand-coffee/80 tracking-wider font-medium">毛孩精緻生活館</p>
+          </div>
+        </a>
+
+        <!-- 桌面版導覽連結 -->
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-brand-coffee">
+          <a href="#philosophy" class="hover:text-brand-warmOrange transition-colors py-2 flex items-center gap-1.5">
+            <i class="fa-regular fa-heart text-xs opacity-75"></i>品牌理念
+          </a>
+          <a href="#products" class="hover:text-brand-warmOrange transition-colors py-2 flex items-center gap-1.5">
+            <i class="fa-solid fa-bone text-xs opacity-75"></i>鮮食零食商城
+          </a>
+          <a href="#grooming" class="hover:text-brand-warmOrange transition-colors py-2 flex items-center gap-1.5">
+            <i class="fa-solid fa-spa text-xs opacity-75"></i>預約美容 SPA
+          </a>
+          <a href="#reviews" class="hover:text-brand-warmOrange transition-colors py-2 flex items-center gap-1.5">
+            <i class="fa-regular fa-comment-dots text-xs opacity-75"></i>家長好評
+          </a>
+        </nav>
+
+        <!-- 右側操作按鈕 (購物車 & 會員登入) -->
+        <div class="flex items-center gap-3 sm:gap-4">
+          <!-- 購物車按鈕 -->
+          <button id="cart-toggle-btn" class="relative p-2.5 rounded-full hover:bg-brand-creamDark text-brand-darkCoffee focus:outline-none transition-colors" title="開啟購物車" aria-label="購物車">
+            <i class="fa-solid fa-bag-shopping text-xl"></i>
+            <span id="cart-badge-count" class="absolute -top-1 -right-1 bg-brand-warmOrange text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-md transform scale-100 transition-transform">0</span>
+          </button>
+
+          <!-- 會員狀態按鈕 -->
+          <div id="auth-button-container">
+            <button id="auth-open-btn" class="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full border border-brand-coffee/30 text-brand-coffee hover:bg-brand-coffee hover:text-white transition-all shadow-sm">
+              <i class="fa-regular fa-user text-xs"></i>
+              <span id="auth-btn-label">登入 / 註冊</span>
+            </button>
+          </div>
+
+          <!-- 手機版漢堡選單按鈕 -->
+          <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl text-brand-coffee hover:bg-brand-creamDark focus:outline-none" aria-label="展開選單">
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 手機版展開選單 -->
+    <div id="mobile-nav" class="hidden md:hidden border-t border-brand-creamDark bg-brand-cream px-5 py-4 space-y-3">
+      <a href="#philosophy" class="block py-2 text-brand-coffee font-medium hover:text-brand-warmOrange" onclick="toggleMobileNav()"><i class="fa-regular fa-heart mr-2 text-brand-sage"></i>品牌理念</a>
+      <a href="#products" class="block py-2 text-brand-coffee font-medium hover:text-brand-warmOrange" onclick="toggleMobileNav()"><i class="fa-solid fa-bone mr-2 text-brand-sage"></i>鮮食零食商城</a>
+      <a href="#grooming" class="block py-2 text-brand-coffee font-medium hover:text-brand-warmOrange" onclick="toggleMobileNav()"><i class="fa-solid fa-spa mr-2 text-brand-sage"></i>預約美容 SPA</a>
+      <a href="#reviews" class="block py-2 text-brand-coffee font-medium hover:text-brand-warmOrange" onclick="toggleMobileNav()"><i class="fa-regular fa-comment-dots mr-2 text-brand-sage"></i>家長好評</a>
+    </div>
+  </header>
+
+  <!-- ================= 2. 英雄區塊 (Hero) ================= -->
+  <section class="relative overflow-hidden pt-8 pb-16 lg:py-24 bg-gradient-to-b from-brand-cream via-brand-cream to-brand-creamDark/40">
+    <!-- 背景裝飾爪印 -->
+    <div class="absolute -top-12 -left-12 text-brand-sage/10 text-9xl pointer-events-none select-none rotate-12">
+      <i class="fa-solid fa-paw"></i>
+    </div>
+    <div class="absolute bottom-4 right-10 text-brand-warmOrange/10 text-9xl pointer-events-none select-none -rotate-12">
+      <i class="fa-solid fa-paw"></i>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- 左側文案 -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left z-10">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-sageLight text-brand-sageDark text-xs sm:text-sm font-semibold tracking-wide border border-brand-sage/20">
+            <span class="w-2 h-2 rounded-full bg-brand-sage badge-pulse"></span>
+            全天然無香精 × 100% 人用級純肉檢驗
+          </div>
+          
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-brand-darkCoffee tracking-tight leading-[1.25]">
+            以家人之名，<br>
+            給毛孩最純粹的<br>
+            <span class="text-brand-sage underline decoration-brand-sand decoration-wavy underline-offset-8">營養與草本呵護</span>。
+          </h1>
+
+          <p class="text-base sm:text-lg text-brand-coffee/85 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            我們相信健康的體魄來自真實食材與溫和護理。萌掌心嚴選在地原肉鮮食、無膠凍乾與草本精萃洗護，為每一隻毛寶貝打造安心、精緻、充滿愛的日常陪伴。
+          </p>
+
+          <!-- 雙 CTA 按鈕 -->
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-3">
+            <a href="#products" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-brand-warmOrange text-white font-bold text-base shadow-lg shadow-brand-warmOrange/25 hover:bg-brand-warmOrangeHover hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+              <i class="fa-solid fa-bowl-food"></i>
+              立即選購鮮食
+            </a>
+            <a href="#grooming" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-white text-brand-sageDark border-2 border-brand-sage font-bold text-base shadow-sm hover:bg-brand-sageLight transition-all transform hover:-translate-y-0.5">
+              <i class="fa-solid fa-shower text-brand-sage"></i>
+              預約草本 SPA 美容
+            </a>
+          </div>
+
+          <!-- 信任指標 -->
+          <div class="pt-6 border-t border-brand-coffee/10 grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0 text-center">
+            <div>
+              <p class="text-2xl sm:text-3xl font-black text-brand-darkCoffee">10,000+</p>
+              <p class="text-xs text-brand-coffee/70 font-medium">快樂健康毛孩</p>
+            </div>
+            <div>
+              <p class="text-2xl sm:text-3xl font-black text-brand-sage">100%</p>
+              <p class="text-xs text-brand-coffee/70 font-medium">人用級食材標準</p>
+            </div>
+            <div>
+              <p class="text-2xl sm:text-3xl font-black text-brand-warmOrange">4.9 ★</p>
+              <p class="text-xs text-brand-coffee/70 font-medium">千位家長好評</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右側主視覺圖片 -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative mx-auto max-w-md lg:max-w-none">
+            <!-- 裝飾背景色塊 -->
+            <div class="absolute -top-4 -right-4 w-72 h-72 bg-brand-sand/50 rounded-full blur-2xl -z-10"></div>
+            <div class="absolute -bottom-6 -left-6 w-60 h-60 bg-brand-sage/20 rounded-full blur-xl -z-10"></div>
+            
+            <!-- 主圖卡片 -->
+            <div class="relative rounded-3xl overflow-hidden shadow-elevated border-4 border-white">
+              <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1000&q=80" alt="活潑健康的狗狗" class="w-full h-[400px] sm:h-[480px] object-cover hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+              <div class="absolute bottom-5 left-5 right-5 text-white bg-white/20 backdrop-blur-md p-4 rounded-2xl border border-white/30 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white flex-shrink-0">
+                  <i class="fa-solid fa-shield-cat text-lg"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm">獸醫團隊共同研發</h4>
+                  <p class="text-xs text-white/90">每批產品通過 SGS 無重金屬與農藥檢驗</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 懸浮小標籤 -->
+            <div class="absolute -top-4 -left-4 bg-white px-4 py-2.5 rounded-2xl shadow-soft border border-brand-creamDark flex items-center gap-2">
+              <span class="text-brand-warmOrange text-lg"><i class="fa-solid fa-leaf"></i></span>
+              <span class="text-xs font-bold text-brand-darkCoffee">100% 草本天然照護</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 3. 企業理念 (Philosophy) ================= -->
+  <section id="philosophy" class="py-20 bg-brand-creamDark/40 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-brand-sage font-bold text-xs uppercase tracking-widest bg-brand-sageLight px-3 py-1 rounded-full">Our Philosophy</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-brand-darkCoffee mt-3 tracking-tight">三大品質承諾，堅守毛孩幸福</h2>
+        <p class="text-brand-coffee/80 text-sm sm:text-base mt-3">我們以照顧親生孩子的心情，把關從飲食到皮毛保養的每一個細節。</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- 承諾 1 -->
+        <div class="bg-white rounded-3xl p-8 shadow-card hover:shadow-soft transition-all duration-300 border border-brand-creamDark/60 group hover:-translate-y-1">
+          <div class="w-16 h-16 rounded-2xl bg-amber-50 text-brand-warmOrange flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-warmOrange group-hover:text-white transition-colors duration-300">
+            <i class="fa-solid fa-drumstick-bite"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brand-darkCoffee mb-3">100% 人用級檢驗純肉</h3>
+          <p class="text-brand-coffee/80 text-sm leading-relaxed">
+            絕不使用副產物肉粉與不明碎肉！堅持採用產銷履歷生鮮雞肉、草飼牛與野生深海魚，經 ISO22000 與 HACCP 認證廠低溫烹調，保留完整肉香與酵素活性。
+          </p>
+          <div class="mt-4 pt-4 border-t border-brand-creamDark flex items-center text-xs font-semibold text-brand-warmOrange gap-1">
+            <span>SGS 檢驗合格</span> <i class="fa-solid fa-check"></i>
+          </div>
+        </div>
+
+        <!-- 承諾 2 -->
+        <div class="bg-white rounded-3xl p-8 shadow-card hover:shadow-soft transition-all duration-300 border border-brand-creamDark/60 group hover:-translate-y-1">
+          <div class="w-16 h-16 rounded-2xl bg-emerald-50 text-brand-sage flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-sage group-hover:text-white transition-colors duration-300">
+            <i class="fa-solid fa-user-doctor"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brand-darkCoffee mb-3">獸醫與寵物營養師把關</h3>
+          <p class="text-brand-coffee/80 text-sm leading-relaxed">
+            每道配方皆嚴格符合 AAFCO 與 NRC 寵物全成長期營養標準。精準調配鈣磷比與牛磺酸、Omega-3 脂肪酸，針對台灣潮濕氣候特別強化皮毛與關節防護。
+          </p>
+          <div class="mt-4 pt-4 border-t border-brand-creamDark flex items-center text-xs font-semibold text-brand-sage gap-1">
+            <span>專業營養師諮詢</span> <i class="fa-solid fa-check"></i>
+          </div>
+        </div>
+
+        <!-- 承諾 3 -->
+        <div class="bg-white rounded-3xl p-8 shadow-card hover:shadow-soft transition-all duration-300 border border-brand-creamDark/60 group hover:-translate-y-1">
+          <div class="w-16 h-16 rounded-2xl bg-orange-50 text-brand-softYellow flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-softYellow group-hover:text-white transition-colors duration-300">
+            <i class="fa-solid fa-spa"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brand-darkCoffee mb-3">低敏無香精草本照護</h3>
+          <p class="text-brand-coffee/80 text-sm leading-relaxed">
+            毛孩嗅覺是人類的萬倍！美容與日常清潔全系列杜絕化學定香劑、矽靈與防腐劑 (Paraben)，選用洋甘菊、金盞花及死海礦物泥，溫柔安撫敏感肌膚。
+          </p>
+          <div class="mt-4 pt-4 border-t border-brand-creamDark flex items-center text-xs font-semibold text-brand-darkCoffee gap-1">
+            <span>親膚溫和認證</span> <i class="fa-solid fa-check"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 4. 寵物零食與鮮食商城 (Products) ================= -->
+  <section id="products" class="py-20 bg-brand-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <span class="text-brand-warmOrange font-bold text-xs uppercase tracking-widest bg-brand-warmOrange/10 px-3 py-1 rounded-full">Organic & Fresh</span>
+          <h2 class="text-3xl sm:text-4xl font-black text-brand-darkCoffee mt-2 tracking-tight">毛孩嚴選鮮食與純肉零食</h2>
+          <p class="text-brand-coffee/80 text-sm sm:text-base mt-2">堅持無添加防腐劑與人工香精，每一口都是純粹美味。</p>
+        </div>
+        
+        <!-- 分類過濾標籤 -->
+        <div class="flex items-center gap-2 mt-6 md:mt-0 overflow-x-auto pb-2" id="product-filter-tabs">
+          <button class="filter-tab active px-4 py-2 rounded-full text-xs font-bold transition-all bg-brand-sage text-white shadow-sm" data-filter="all">全部商品</button>
+          <button class="filter-tab px-4 py-2 rounded-full text-xs font-bold transition-all bg-white text-brand-coffee hover:bg-brand-creamDark" data-filter="fresh">鮮食包</button>
+          <button class="filter-tab px-4 py-2 rounded-full text-xs font-bold transition-all bg-white text-brand-coffee hover:bg-brand-creamDark" data-filter="freeze-dried">原肉凍乾</button>
+          <button class="filter-tab px-4 py-2 rounded-full text-xs font-bold transition-all bg-white text-brand-coffee hover:bg-brand-creamDark" data-filter="health">保健健齒</button>
+        </div>
+      </div>
+
+      <!-- 商品網格 (動態渲染) -->
+      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 由 JavaScript 生成 6 款商品卡片 -->
+      </div>
+
+      <!-- 額外承諾橫幅 -->
+      <div class="mt-16 bg-gradient-to-r from-brand-sage to-brand-sageDark rounded-3xl p-8 sm:p-10 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-soft">
+        <div class="flex items-center gap-5 text-center md:text-left flex-col md:flex-row">
+          <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-3xl flex-shrink-0">
+            <i class="fa-solid fa-truck-fast"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold">全館滿 $1,200 免運費！低溫黑貓冷凍直送</h3>
+            <p class="text-white/80 text-sm mt-1">平日 14:00 前下單當日出貨，鎖住新鮮營養無流失。</p>
+          </div>
+        </div>
+        <a href="#products" class="px-6 py-3 rounded-full bg-white text-brand-sageDark font-bold text-sm hover:bg-brand-cream transition-colors whitespace-nowrap shadow-sm">
+          挑選健康零食
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= 6. 寵物美容線上預約專區 (Grooming Booking) ================= -->
+  <section id="grooming" class="py-20 bg-brand-creamDark/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-brand-sage font-bold text-xs uppercase tracking-widest bg-brand-sageLight px-3 py-1 rounded-full">Herbal Spa & Grooming</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-brand-darkCoffee mt-3 tracking-tight">頂級草本 SPA 與無壓力美容預約</h2>
+        <p class="text-brand-coffee/80 text-sm sm:text-base mt-2">
+          一對一低緊迫環境，採用微氣泡水與天然植萃洗護，讓洗澡成為毛孩最期待的放鬆時光。
+        </p>
+      </div>
+
+      <!-- 服務方案卡片 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        
+        <!-- 方案 1 -->
+        <div class="bg-white rounded-3xl p-6 border-2 border-transparent hover:border-brand-sage transition-all shadow-card relative flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <span class="px-3 py-1 bg-brand-sageLight text-brand-sage text-xs font-bold rounded-full">日常基礎護理</span>
+              <span class="text-2xl font-black text-brand-darkCoffee">NT$ 800 <span class="text-xs font-normal text-brand-coffee/60">起</span></span>
+            </div>
+            <h3 class="text-xl font-bold text-brand-darkCoffee mb-2">基礎草本深層洗沐</h3>
+            <p class="text-brand-coffee/70 text-xs mb-4">適合定期維持毛髮清爽與皮膚健康日常護理</p>
+            <ul class="space-y-2.5 text-xs text-brand-coffee/85">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-paw text-brand-sage"></i> 雙道天然茶樹/洋甘菊精萃洗沐</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-paw text-brand-sage"></i> 專業無痛剪趾甲、修磨甲緣</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-paw text-brand-sage"></i> 清理耳道、擠肛門腺與修腳底毛</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-paw text-brand-sage"></i> 溫風低噪音蓬鬆拉毛護理</li>
+            </ul>
+          </div>
+          <button onclick="selectGroomingService('基礎草本深層洗沐 (NT$ 800起)')" class="mt-6 w-full py-2.5 rounded-xl border border-brand-sage text-brand-sage font-bold text-xs hover:bg-brand-sage hover:text-white transition-colors">
+            選擇此方案
+          </button>
+        </div>
+
+        <!-- 方案 2 (熱門推薦) -->
+        <div class="bg-white rounded-3xl p-6 border-2 border-brand-warmOrange shadow-soft relative flex flex-col justify-between transform md:-translate-y-2">
+          <div class="absolute -top-3.5 right-6 bg-brand-warmOrange text-white text-[11px] font-black px-3 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
+            人氣首選
+          </div>
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <span class="px-3 py-1 bg-orange-100 text-brand-warmOrange text-xs font-bold rounded-full">敏感肌/除蟲防護</span>
+              <span class="text-2xl font-black text-brand-darkCoffee">NT$ 1,200 <span class="text-xs font-normal text-brand-coffee/60">起</span></span>
+            </div>
+            <h3 class="text-xl font-bold text-brand-darkCoffee mb-2">深層除蚤與抑菌微氣泡浴</h3>
+            <p class="text-brand-coffee/70 text-xs mb-4">針對台灣潮濕氣候、易搔癢及戶外奔跑毛孩設計</p>
+            <ul class="space-y-2.5 text-xs text-brand-coffee/85">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-paw text-brand-warmOrange"></i> 包含「基礎草本深層洗沐」全項目</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-paw text-brand-warmOrange"></i> 奈米超細微氣泡深入毛孔帶走髒污油脂</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-paw text-brand-warmOrange"></i> 苦楝油草本抑菌配方驅避蚤蟎</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-paw text-brand-warmOrange"></i> 舒緩皮屑與紅疹發癢症狀</li>
+            </ul>
+          </div>
+          <button onclick="selectGroomingService('深層除蚤與抑菌微氣泡浴 (NT$ 1,200起)')" class="mt-6 w-full py-2.5 rounded-xl bg-brand-warmOrange text-white font-bold text-xs hover:bg-brand-warmOrangeHover transition-colors shadow-sm">
+            選擇此方案
+          </button>
+        </div>
+
+        <!-- 方案 3 -->
+        <div class="bg-white rounded-3xl p-6 border-2 border-transparent hover:border-brand-sage transition-all shadow-card relative flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <span class="px-3 py-1 bg-brand-sageLight text-brand-sage text-xs font-bold rounded-full">貴婦級極致享受</span>
+              <span class="text-2xl font-black text-brand-darkCoffee">NT$ 1,800 <span class="text-xs font-normal text-brand-coffee/60">起</span></span>
+            </div>
+            <h3 class="text-xl font-bold text-brand-darkCoffee mb-2">頂級死海礦物 SPA 泥浴</h3>
+            <p class="text-brand-coffee/70 text-xs mb-4">活化皮膚細胞、毛髮重現絲綢般光澤與蓬鬆彈力</p>
+            <ul class="space-y-2.5 text-xs text-brand-coffee/85">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-paw text-brand-sage"></i> 包含洗沐全套 + 微氣泡溫泉水洗禮</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-paw text-brand-sage"></i> 以色列進口死海泥全身裹敷按摩 15 分鐘</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-paw text-brand-sage"></i> 摩洛哥堅果油毛髮滋養精華蒸氣護理</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-paw text-brand-sage"></i> 贈送肉球草本護理霜深層滋潤按摩</li>
+            </ul>
+          </div>
+          <button onclick="selectGroomingService('頂級死海礦物 SPA 泥浴 (NT$ 1,800起)')" class="mt-6 w-full py-2.5 rounded-xl border border-brand-sage text-brand-sage font-bold text-xs hover:bg-brand-sage hover:text-white transition-colors">
+            選擇此方案
+          </button>
+        </div>
+
+      </div>
+
+      <!-- 預約表單區塊 -->
+      <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-soft border border-brand-creamDark max-w-4xl mx-auto">
+        <div class="border-b border-brand-creamDark pb-6 mb-8 text-center sm:text-left">
+          <h3 class="text-2xl font-black text-brand-darkCoffee flex items-center justify-center sm:justify-start gap-2">
+            <i class="fa-regular fa-calendar-check text-brand-sage"></i>
+            填寫線上美容預約單
+          </h3>
+          <p class="text-xs sm:text-sm text-brand-coffee/70 mt-1">提交後將由專屬美容師於 2 小時內電話聯繫確認毛孩體態與確切到店時段。</p>
+        </div>
+
+        <form id="grooming-form" onsubmit="handleGroomingSubmit(event)" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            
+            <!-- 方案選擇 -->
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-brand-coffee uppercase tracking-wider mb-2">已選擇的美容方案 *</label>
+              <select id="grooming-service-select" required class="w-full px-4 py-3 rounded-2xl bg-brand-cream/60 border border-brand-creamDark focus:ring-2 focus:ring-brand-sage focus:outline-none text-sm font-semibold">
+                <option value="基礎草本深層洗沐 (NT$ 800起)">基礎草本深層洗沐 (NT$ 800起)</option>
+                <option value="深層除蚤與抑菌微氣泡浴 (NT$ 1,200起)" selected>深層除蚤與抑菌微氣泡浴 (NT$ 1,200起)</option>
+                <option value="頂級死海礦物 SPA 泥浴 (NT$ 1,800起)">頂級死海礦物 SPA 泥浴 (NT$ 1,800起)</option>
+              </select>
+            </div>
+
+            <!-- 飼主姓名 -->
+            <div>
+              <label class="block text-xs font-bold text-brand-coffee uppercase tracking-wider mb-2">飼主姓名 *</label>
+              <input type="text" id="grooming-owner-name" required placeholder="例如：林小美" class="w-full px-4 py-3 rounded-2xl bg-brand-cream/60 border border-brand-creamDark focus:ring-2 focus:ring-brand-sage focus:outline-none text-sm">
+            </div>
+
+            <!-- 聯絡電話 -->
+            <div>
+              <label class="block text-xs font-bold text-brand-coffee uppercase tracking-wider mb-2">聯絡電話 (手機) *</label>
+              <input type="tel" id="grooming-owner-phone" required placeholder="例如：0912-345-678" pattern="[0-9]{9,11}" class="w-full px-4 py-3 rounded-2xl bg-brand-cream/60 border border-brand-creamDark focus:ring-2 focus:ring-brand-sage focus:outline-none text-sm">
+            </div>
+
+            <!-- 毛孩名字與品種體型 -->
+            <div>
+              <label class="block text-xs font-bold text-brand-coffee uppercase tracking-wider mb-2">毛孩名字與品種 *</label>
+              <input type="text" id="grooming-pet-name" required placeholder="例如：波波 (柴犬)" class="w-full px-4 py-3 rounded-2xl bg-brand-cream/60 border border-brand-creamDark focus:ring-2 focus:ring-brand-sage focus:outline-none text-sm">
+            </div>
+
+            <!-- 體型重量 -->
+            <div>
+              <label class="block text-xs font-bold text-brand-coffee uppercase tracking-wider mb-2">毛孩體型 / 預估體重 *</label>
+              <select id="grooming-pet-size" required class="w-full px-4 py-3 rounded-2xl bg-brand-cream/60 border border-brand-creamDark focus:ring-2 focus:ring-brand-sage focus:outline-none text-sm">
+                <option value="小型犬/貓咪 (5kg 以下)">小型犬 / 貓咪 (5kg 以下)</option>
+                <option value="中小型犬 (5 ~ 10kg)" selected>中小型犬 (5 ~ 10kg)</option>
+                <option value="中大型犬 (10 ~ 20kg)">中大型犬 (10 ~ 20kg)</option>
+                <option value="大型巨型犬 (20kg 以上)">大型巨型犬 (20kg 以上)</option>
+              </select>
+            </div>
+
+            <!-- 預約日期 -->
+            <div>
+              <label class="block text-xs font-bold text-brand-coffee uppercase tracking-wider mb-2">預約日期 *</label>
+              <input type="date" id="grooming-date" required class="w-full px-4 py-3 rounded-2xl bg-brand-cream/60 border border-brand-creamDark focus:ring-2 focus:ring-brand-sage focus:outline-none text-sm">
+            </div>
+
+            <!-- 預約時段 -->
+            <div>
+              <label class="block text-xs font-bold text-brand-coffee uppercase tracking-wider mb-2">預約時段 *</label>
+              <select id="grooming-time" required class="w-full px-4 py-3 rounded-2xl bg-brand-cream/60 border border-brand-creamDark focus:ring-2 focus:ring-brand-sage focus:outline-none text-sm">
+                <option value="上午時段 10:00 - 12:00">上午時段 10:00 - 12:00</option>
+                <option value="下午時段 13:00 - 15:00" selected>下午時段 13:00 - 15:00</option>
+                <option value="下午時段 15:30 - 17:30">下午時段 15:30 - 17:30</option>
+                <option value="晚間時段 18:00 - 20:00">晚間時段 18:00 - 20:00</option>
+              </select>
+            </div>
+
+            <!-- 特殊備註 -->
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-brand-coffee uppercase tracking-wider mb-2">特殊健康狀況或個性備註 (非必填)</label>
+              <textarea id="grooming-notes" rows="3" placeholder="例如：害怕吹風機聲音、後腳關節受過傷、有皮膚過敏史等，協助美容師提前準備合適照護..." class="w-full px-4 py-3 rounded-2xl bg-brand-cream/60 border border-brand-creamDark focus:ring-2 focus:ring-brand-sage focus:outline-none text-sm"></textarea>
+            </div>
+
+          </div>
+
+          <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-xs text-brand-coffee/60 flex items-center gap-1.5">
+              <i class="fa-solid fa-shield-halved text-brand-sage"></i>
+              我們承諾全程不施打鎮定劑，溫柔守護毛孩安全。
+            </p>
+            <button type="submit" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-brand-sage text-white font-bold text-sm hover:bg-brand-sageDark transition-all shadow-md shadow-brand-sage/20 transform hover:-translate-y-0.5">
+              立即送出美容預約
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= 顧客好評區塊 (Reviews) ================= -->
+  <section id="reviews" class="py-20 bg-brand-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-xl mx-auto mb-16">
+        <span class="text-brand-warmOrange font-bold text-xs uppercase tracking-widest bg-brand-warmOrange/10 px-3 py-1 rounded-full">Testimonials</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-brand-darkCoffee mt-3 tracking-tight">看毛爸毛媽怎麼說</h2>
+        <p class="text-brand-coffee/80 text-sm mt-2">真實顧客回饋，是我們堅持高品質的最佳動力。</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- 評論 1 -->
+        <div class="bg-white rounded-3xl p-7 shadow-card border border-brand-creamDark flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex text-amber-400 gap-1 text-sm">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-brand-coffee text-sm leading-relaxed">
+              「家裡的柴犬以前超挑食，試了萌掌心的純肉鮮食包之後每次一放碗就光速秒殺！而且便便形狀變得非常漂亮，不再軟便，真心大推！」
+            </p>
+          </div>
+          <div class="flex items-center gap-3 mt-6 pt-4 border-t border-brand-creamDark">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="顧客頭像" class="w-10 h-10 rounded-full object-cover">
+            <div>
+              <p class="text-xs font-bold text-brand-darkCoffee">王小姐 (柴犬 Q 寶媽媽)</p>
+              <p class="text-[11px] text-brand-coffee/60">回購純肉無穀鮮食包 8 次</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 評論 2 -->
+        <div class="bg-white rounded-3xl p-7 shadow-card border border-brand-creamDark flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex text-amber-400 gap-1 text-sm">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-brand-coffee text-sm leading-relaxed">
+              「貓咪很膽小容易緊張，之前去其他地方洗澡都會發抖。這裡的美容師非常有耐心，微氣泡草本洗完回家毛質超蓬鬆，聞起來像自然植物清香，完全不刺鼻！」
+            </p>
+          </div>
+          <div class="flex items-center gap-3 mt-6 pt-4 border-t border-brand-creamDark">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="顧客頭像" class="w-10 h-10 rounded-full object-cover">
+            <div>
+              <p class="text-xs font-bold text-brand-darkCoffee">張先生 (英短 拿鐵爸爸)</p>
+              <p class="text-[11px] text-brand-coffee/60">定期草本微氣泡 SPA 預約會員</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 評論 3 -->
+        <div class="bg-white rounded-3xl p-7 shadow-card border border-brand-creamDark flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex text-amber-400 gap-1 text-sm">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-brand-coffee text-sm leading-relaxed">
+              「凍乾雞肉丁的肉質紋理很清楚，連我聞了都覺得好香！潔牙棒也是少數我家貴賓肯認真啃完的。出貨速度超快，包裝非常精美用心。」
+            </p>
+          </div>
+          <div class="flex items-center gap-3 mt-6 pt-4 border-t border-brand-creamDark">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80" alt="顧客頭像" class="w-10 h-10 rounded-full object-cover">
+            <div>
+              <p class="text-xs font-bold text-brand-darkCoffee">陳小姐 (貴賓 圓圓家長)</p>
+              <p class="text-[11px] text-brand-coffee/60">金卡 VIP 會員</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 8. 頁尾 (Footer) ================= -->
+  <footer class="bg-brand-darkCoffee text-brand-cream/80 pt-16 pb-12 border-t-4 border-brand-sand">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-brand-cream/10">
+        
+        <!-- 品牌簡介 -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-2 text-white">
+            <div class="w-8 h-8 rounded-xl bg-brand-sage flex items-center justify-center text-white">
+              <i class="fa-solid fa-paw text-sm"></i>
+            </div>
+            <span class="text-xl font-bold tracking-tight">萌掌心 PawHeart</span>
+          </div>
+          <p class="text-xs text-brand-cream/70 leading-relaxed">
+            我們以自然、純淨、尊重的初衷，致力於打造人寵共融的理想生活圈。嚴格把關每一份鮮食與每一次洗護體驗。
+          </p>
+          <div class="flex gap-3 text-lg text-brand-sand">
+            <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-warmOrange hover:text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-warmOrange hover:text-white transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-warmOrange hover:text-white transition-colors"><i class="fa-brands fa-line"></i></a>
+            <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-warmOrange hover:text-white transition-colors"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- 門市營業資訊 -->
+        <div class="space-y-3">
+          <h4 class="text-white font-bold text-sm tracking-wider uppercase border-l-2 border-brand-warmOrange pl-2">門市營業資訊</h4>
+          <ul class="text-xs space-y-2 text-brand-cream/70">
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-location-dot mt-0.5 text-brand-sand"></i>
+              <span>台北市大安區青田街 88 號 1 樓 (近東門站)</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-regular fa-clock text-brand-sand"></i>
+              <span>週二至週日 10:30 - 20:30 (週一固定公休消毒)</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-phone text-brand-sand"></i>
+              <span>客服電話：(02) 2345-6789</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-regular fa-envelope text-brand-sand"></i>
+              <span>support@pawheart.com.tw</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 快速連結 -->
+        <div class="space-y-3">
+          <h4 class="text-white font-bold text-sm tracking-wider uppercase border-l-2 border-brand-sage pl-2">顧客專區</h4>
+          <ul class="text-xs space-y-2 text-brand-cream/70">
+            <li><a href="#philosophy" class="hover:text-white transition-colors">關於萌掌心理念</a></li>
+            <li><a href="#products" class="hover:text-white transition-colors">純肉鮮食與天然凍乾</a></li>
+            <li><a href="#grooming" class="hover:text-white transition-colors">預約寵物草本 SPA 美容</a></li>
+            <li><a href="javascript:void(0)" onclick="openAuthModal('login')" class="hover:text-white transition-colors">VIP 會員紅利點數查詢</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">退換貨須知與配送進度</a></li>
+          </ul>
+        </div>
+
+        <!-- 訂閱電子報 -->
+        <div class="space-y-3">
+          <h4 class="text-white font-bold text-sm tracking-wider uppercase border-l-2 border-brand-sand pl-2">毛孩健康專欄</h4>
+          <p class="text-xs text-brand-cream/70">訂閱萌掌心電子報，每月領取 $100 首購折價券與最新鮮食食譜。</p>
+          <form onsubmit="handleNewsletterSubmit(event)" class="space-y-2">
+            <div class="flex">
+              <input type="email" required placeholder="輸入您的 Email" class="w-full px-3 py-2 rounded-l-xl text-xs bg-white/10 text-white placeholder-brand-cream/50 border border-white/20 focus:outline-none focus:ring-1 focus:ring-brand-sand">
+              <button type="submit" class="bg-brand-warmOrange hover:bg-brand-warmOrangeHover text-white px-4 py-2 rounded-r-xl text-xs font-bold transition-colors">
+                訂閱
+              </button>
+            </div>
+            <p class="text-[10px] text-brand-cream/50">我們尊重您的隱私，隨時可一鍵取消訂閱。</p>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-brand-cream/50 gap-4">
+        <p>© 2026 萌掌心 PawHeart 寵物生活館. 版權所有. All rights reserved.</p>
+        <p class="flex gap-4">
+          <a href="#" class="hover:underline">隱私權政策</a>
+          <a href="#" class="hover:underline">服務條款</a>
+          <a href="#" class="hover:underline">農委會寵物食品登記認證字號 A2026-9988</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= 5. 購物車側邊欄 (Cart Drawer) ================= -->
+  <div id="cart-drawer-backdrop" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div class="absolute inset-0" onclick="closeCartDrawer()"></div>
+    
+    <div id="cart-drawer-panel" class="absolute top-0 right-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out">
+      
+      <!-- 側邊欄頂部 -->
+      <div class="p-5 border-b border-brand-creamDark flex items-center justify-between bg-brand-cream">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-bag-shopping text-brand-sage text-lg"></i>
+          <h3 class="font-bold text-lg text-brand-darkCoffee">毛孩購物車</h3>
+          <span id="drawer-item-count" class="text-xs bg-brand-sageLight text-brand-sage font-bold px-2 py-0.5 rounded-full">0 件商品</span>
+        </div>
+        <button onclick="closeCartDrawer()" class="p-2 rounded-full hover:bg-brand-creamDark text-brand-coffee transition-colors" aria-label="關閉購物車">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- 免運費進度條 -->
+      <div class="px-5 py-3 bg-brand-sageLight/50 border-b border-brand-creamDark text-xs">
+        <div class="flex justify-between font-medium text-brand-sageDark mb-1.5">
+          <span id="free-shipping-text">滿 NT$ 1,200 享黑貓低溫免運</span>
+          <span id="shipping-diff-amount" class="font-bold">還差 NT$ 1,200</span>
+        </div>
+        <div class="w-full h-2 bg-brand-creamDark rounded-full overflow-hidden">
+          <div id="free-shipping-bar" class="h-full bg-brand-sage transition-all duration-300 rounded-full" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- 購物車商品列表 (可捲動) -->
+      <div id="cart-items-container" class="flex-1 overflow-y-auto p-5 space-y-4">
+        <!-- 由 JavaScript 動態生成購物車項目 -->
+      </div>
+
+      <!-- 側邊欄底部結帳金額計算 -->
+      <div class="p-5 border-t border-brand-creamDark bg-brand-cream/50 space-y-3">
+        <div class="space-y-1.5 text-xs text-brand-coffee">
+          <div class="flex justify-between">
+            <span>商品小計</span>
+            <span id="cart-subtotal" class="font-semibold text-brand-darkCoffee">NT$ 0</span>
+          </div>
+          <div class="flex justify-between">
+            <span>冷凍黑貓運費</span>
+            <span id="cart-shipping-fee" class="font-semibold text-brand-darkCoffee">NT$ 150</span>
+          </div>
+          <div class="flex justify-between text-base font-bold text-brand-darkCoffee pt-2 border-t border-brand-creamDark">
+            <span>預估總計</span>
+            <span id="cart-total" class="text-brand-warmOrange font-black text-xl">NT$ 0</span>
+          </div>
+        </div>
+
+        <button id="checkout-trigger-btn" onclick="openCheckoutModal()" class="w-full py-3.5 rounded-2xl bg-brand-warmOrange text-white font-bold text-sm hover:bg-brand-warmOrangeHover transition-colors shadow-md flex items-center justify-center gap-2">
+          <span>前往線上結帳</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <button onclick="closeCartDrawer()" class="w-full py-2 text-xs font-semibold text-brand-coffee/70 hover:text-brand-coffee transition-colors">
+          繼續挑選商品
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= 結帳資訊填寫彈窗 (Checkout Modal) ================= -->
+  <div id="checkout-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-brand-creamDark">
+      
+      <!-- 彈窗頂部 -->
+      <div class="p-6 border-b border-brand-creamDark flex items-center justify-between bg-brand-cream">
+        <div>
+          <h3 class="text-xl font-bold text-brand-darkCoffee flex items-center gap-2">
+            <i class="fa-solid fa-credit-card text-brand-warmOrange"></i>
+            填寫訂購與收件資訊
+          </h3>
+          <p class="text-xs text-brand-coffee/70 mt-1">請確認您的寄送地址，我們將以低溫保鮮配送。</p>
+        </div>
+        <button onclick="closeCheckoutModal()" class="p-2 rounded-full hover:bg-brand-creamDark text-brand-coffee transition-colors">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- 表單內容 -->
+      <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)" class="p-6 space-y-4">
+        
+        <!-- 訂單品項簡覽 -->
+        <div class="bg-brand-cream/60 rounded-2xl p-4 border border-brand-creamDark text-xs space-y-2">
+          <div class="font-bold text-brand-darkCoffee flex justify-between">
+            <span>訂單摘要</span>
+            <span id="checkout-summary-count">0 件商品</span>
+          </div>
+          <div id="checkout-items-preview" class="max-h-24 overflow-y-auto space-y-1 text-brand-coffee/80 pr-1"></div>
+          <div class="pt-2 border-t border-brand-creamDark flex justify-between font-bold text-sm text-brand-warmOrange">
+            <span>結帳應付金額</span>
+            <span id="checkout-summary-total">NT$ 0</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-brand-coffee mb-1">收件人姓名 *</label>
+            <input type="text" id="order-name" required placeholder="例如：林小美" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-creamDark text-xs focus:ring-2 focus:ring-brand-warmOrange focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-brand-coffee mb-1">聯絡電話 *</label>
+            <input type="tel" id="order-phone" required placeholder="例如：0912-345-678" pattern="[0-9]{9,11}" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-creamDark text-xs focus:ring-2 focus:ring-brand-warmOrange focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-brand-coffee mb-1">電子信箱 (接收訂單通知) *</label>
+          <input type="email" id="order-email" required placeholder="name@example.com" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-creamDark text-xs focus:ring-2 focus:ring-brand-warmOrange focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-brand-coffee mb-1">低溫配送地址 *</label>
+          <input type="text" id="order-address" required placeholder="例如：台北市信義區信義路五段 7 號 8 樓" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-creamDark text-xs focus:ring-2 focus:ring-brand-warmOrange focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-brand-coffee mb-1">付款方式 *</label>
+          <select id="order-payment" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-creamDark text-xs focus:ring-2 focus:ring-brand-warmOrange focus:outline-none font-medium">
+            <option value="信用卡線上刷卡 (Visa/Master/JCB)">信用卡線上刷卡 (Visa/Master/JCB)</option>
+            <option value="LINE Pay 行動支付">LINE Pay 行動支付</option>
+            <option value="黑貓宅配貨到付款">黑貓宅配貨到付款 (需加收 $30 手續費)</option>
+            <option value="ATM 虛擬帳號轉帳">ATM 虛擬帳號轉帳</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-brand-coffee mb-1">訂單或毛孩備註</label>
+          <textarea id="order-notes" rows="2" placeholder="例如：請放置大樓管理室、若不在請電話聯繫..." class="w-full px-3.5 py-2.5 rounded-xl border border-brand-creamDark text-xs focus:ring-2 focus:ring-brand-warmOrange focus:outline-none"></textarea>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeCheckoutModal()" class="px-5 py-2.5 rounded-xl text-xs font-bold text-brand-coffee hover:bg-brand-creamDark transition-colors">
+            返回修改
+          </button>
+          <button type="submit" class="px-7 py-2.5 rounded-xl bg-brand-warmOrange text-white font-bold text-xs hover:bg-brand-warmOrangeHover transition-colors shadow-md">
+            確認送出訂單
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ================= 7. CRM 會員註冊/登入彈窗 (Auth Modal) ================= -->
+  <div id="auth-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-brand-creamDark overflow-hidden">
+      
+      <!-- 頁籤切換 Header -->
+      <div class="bg-brand-cream p-6 pb-0 border-b border-brand-creamDark">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-brand-sage text-white flex items-center justify-center text-sm">
+              <i class="fa-solid fa-paw"></i>
+            </div>
+            <h3 class="font-black text-lg text-brand-darkCoffee">毛孩家長專屬俱樂部</h3>
+          </div>
+          <button onclick="closeAuthModal()" class="p-1.5 rounded-full hover:bg-brand-creamDark text-brand-coffee transition-colors">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <!-- 登入 / 註冊切換 Tabs -->
+        <div class="flex gap-4">
+          <button id="tab-login" onclick="switchAuthTab('login')" class="pb-3 text-sm font-bold border-b-2 border-brand-warmOrange text-brand-warmOrange transition-all flex-1 text-center">
+            會員登入
+          </button>
+          <button id="tab-register" onclick="switchAuthTab('register')" class="pb-3 text-sm font-bold border-b-2 border-transparent text-brand-coffee/60 hover:text-brand-coffee transition-all flex-1 text-center">
+            註冊新會員
+          </button>
+        </div>
+      </div>
+
+      <!-- 表單本體 -->
+      <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="p-6 space-y-4">
+        
+        <!-- 登入與註冊通用：Email -->
+        <div>
+          <label class="block text-xs font-bold text-brand-coffee mb-1">電子信箱 (Email) *</label>
+          <div class="relative">
+            <i class="fa-regular fa-envelope absolute left-3.5 top-3 text-brand-coffee/40 text-xs"></i>
+            <input type="email" id="auth-email" required placeholder="pawparent@example.com" class="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-brand-creamDark text-xs focus:ring-2 focus:ring-brand-warmOrange focus:outline-none">
+          </div>
+        </div>
+
+        <!-- 登入與註冊通用：Password -->
+        <div>
+          <label class="block text-xs font-bold text-brand-coffee mb-1">密碼 *</label>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-3.5 top-3 text-brand-coffee/40 text-xs"></i>
+            <input type="password" id="auth-password" required placeholder="請輸入至少 6 位密碼" minlength="6" class="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-brand-creamDark text-xs focus:ring-2 focus:ring-brand-warmOrange focus:outline-none">
+          </div>
+        </div>
+
+        <!-- 註冊專用欄位：毛孩姓名與生日月份 -->
+        <div id="register-extra-fields" class="space-y-4 hidden">
+          <div>
+            <label class="block text-xs font-bold text-brand-coffee mb-1">毛孩名字 (登錄享生日禮) *</label>
+            <div class="relative">
+              <i class="fa-solid fa-dog absolute left-3.5 top-3 text-brand-coffee/40 text-xs"></i>
+              <input type="text" id="auth-pet-name" placeholder="例如：黑糖、波波" class="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-brand-creamDark text-xs focus:ring-2 focus:ring-brand-warmOrange focus:outline-none">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-brand-coffee mb-1">毛孩種類</label>
+            <select id="auth-pet-type" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-creamDark text-xs focus:ring-2 focus:ring-brand-warmOrange focus:outline-none">
+              <option value="汪星人">汪星人 (狗狗)</option>
+              <option value="喵星人">喵星人 (貓咪)</option>
+              <option value="其他寶貝">其他寵物寶貝</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" id="auth-submit-btn" class="w-full py-3 rounded-xl bg-brand-warmOrange text-white font-bold text-sm hover:bg-brand-warmOrangeHover transition-colors shadow-md mt-4">
+          立即登入
+        </button>
+
+        <p class="text-[11px] text-center text-brand-coffee/60 pt-2">
+          註冊或登入即表示您同意萌掌心的《會員服務條款》與《隱私保護政策》。
+        </p>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ================= 浮動提示 Toast 通知 ================= -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ================= JavaScript 邏輯 ================= -->
+  <script>
+    /* ----------------------------------------------------
+     * 1. 產品資料集 (Products Dataset)
+     * ---------------------------------------------------- */
+    const PRODUCTS = [
+      {
+        id: 1,
+        name: "純肉無穀低溫鮮食包 (草飼牛 × 甜橙甜菜根)",
+        category: "fresh",
+        categoryLabel: "鮮食主食",
+        spec: "150g / 包 × 5 入組",
+        price: 699,
+        tag: "熱銷冠軍",
+        tagColor: "bg-red-500",
+        image: "https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=600&q=80",
+        description: "符合 AAFCO 完整主食營養，純鮮牛肉富含鐵質與鋅，搭配抗氧化甜菜根。"
+      },
+      {
+        id: 2,
+        name: "原肉低溫冷凍乾燥雞肉丁 (原汁鮮香)",
+        category: "freeze-dried",
+        categoryLabel: "無膠凍乾",
+        spec: "80g / 罐",
+        price: 250,
+        tag: "純肉零添加",
+        tagColor: "bg-amber-600",
+        image: "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=600&q=80",
+        description: "-40℃ 真空冷凍乾燥技術鎖住 98% 原始營養，嗜口性極佳，適合挑嘴毛孩。"
+      },
+      {
+        id: 3,
+        name: "草本植萃健齒潔牙棒 (薄荷葉綠素配方)",
+        category: "health",
+        categoryLabel: "健齒潔牙",
+        spec: "18 支入 / 袋",
+        price: 180,
+        tag: "口氣清新",
+        tagColor: "bg-emerald-600",
+        image: "https://images.unsplash.com/photo-1535294435445-d7249524ef2e?auto=format&fit=crop&w=600&q=80",
+        description: "專利多角度凹槽設計，深層摩擦牙垢，添加天然薄荷葉讓接吻不再怕口臭。"
+      },
+      {
+        id: 4,
+        name: "極品野生白身鮪魚純肉泥 (泌尿道守護配方)",
+        category: "fresh",
+        categoryLabel: "肉泥零嘴",
+        spec: "14g × 8 入",
+        price: 220,
+        tag: "補水首選",
+        tagColor: "bg-sky-600",
+        image: "https://images.unsplash.com/photo-1561037404-61cd46aa615b?auto=format&fit=crop&w=600&q=80",
+        description: "高水分含量誘食補水，添加蔓越莓精華與牛磺酸，守護貓狗下泌尿道健康。"
+      },
+      {
+        id: 5,
+        name: "挪威低溫冷壓純深海鮭魚油 (Omega-3 亮毛)",
+        category: "health",
+        categoryLabel: "皮毛營養",
+        spec: "250ml / 瓶",
+        price: 580,
+        tag: "爆毛神器",
+        tagColor: "bg-orange-500",
+        image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=600&q=80",
+        description: "豐富 EPA & DHA 脂肪酸，改善皮膚乾燥與換毛期落毛，讓毛髮恢復絲質光澤。"
+      },
+      {
+        id: 6,
+        name: "原野放牧鹿肉佐南瓜低脂凍乾塊",
+        category: "freeze-dried",
+        categoryLabel: "頂級凍乾",
+        spec: "70g / 罐",
+        price: 360,
+        tag: "低敏肉源",
+        tagColor: "bg-purple-600",
+        image: "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=600&q=80",
+        description: "單一低敏鹿肉蛋白搭配天然南瓜膳食纖維，維持腸道菌叢平衡，腸胃敏感必備。"
+      }
+    ];
+
+    /* ----------------------------------------------------
+     * 2. 全域狀態管理 (State)
+     * ---------------------------------------------------- */
+    let cart = [];
+    let currentUser = null; // { email: '...', petName: '...' }
+    let authMode = 'login'; // 'login' | 'register'
+    const FREE_SHIPPING_THRESHOLD = 1200;
+    const DEFAULT_SHIPPING_FEE = 150;
+
+    /* ----------------------------------------------------
+     * 3. DOM 載入與初始化
+     * ---------------------------------------------------- */
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProducts('all');
+      setupFilterTabs();
+      setupCartListeners();
+      setDefaultGroomingDate();
+    });
+
+    // 渲染商品清單
+    function renderProducts(filter = 'all') {
+      const container = document.getElementById('products-grid');
+      const filtered = filter === 'all' 
+        ? PRODUCTS 
+        : PRODUCTS.filter(p => p.category === filter);
+
+      container.innerHTML = filtered.map(product => `
+        <div class="bg-white rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 border border-brand-creamDark flex flex-col group">
+          <div class="relative overflow-hidden aspect-[4/3] bg-brand-creamDark">
+            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 ${product.tagColor} text-white text-[10px] font-black tracking-wider px-2.5 py-1 rounded-full uppercase shadow-sm">
+              ${product.tag}
+            </span>
+            <span class="absolute bottom-3 right-3 bg-white/90 backdrop-blur-md text-brand-darkCoffee text-xs font-semibold px-2.5 py-1 rounded-lg">
+              ${product.categoryLabel}
+            </span>
+          </div>
+
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs text-brand-coffee/60 mb-1">
+                <span>規格：${product.spec}</span>
+              </div>
+              <h3 class="text-base font-bold text-brand-darkCoffee group-hover:text-brand-warmOrange transition-colors line-clamp-1 mb-2">
+                ${product.name}
+              </h3>
+              <p class="text-xs text-brand-coffee/80 leading-relaxed line-clamp-2 mb-4">
+                ${product.description}
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-brand-creamDark flex items-center justify-between">
+              <div>
+                <span class="text-xs text-brand-coffee/60">售價</span>
+                <p class="text-xl font-black text-brand-warmOrange">NT$ ${product.price.toLocaleString()}</p>
+              </div>
+              <button onclick="addToCart(${product.id})" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-brand-creamDark hover:bg-brand-warmOrange text-brand-darkCoffee hover:text-white font-bold text-xs transition-all duration-200">
+                <i class="fa-solid fa-cart-plus"></i>
+                <span>加入購物車</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 分類 Tab 切換
+    function setupFilterTabs() {
+      const tabs = document.querySelectorAll('.filter-tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => {
+            t.classList.remove('bg-brand-sage', 'text-white', 'shadow-sm');
+            t.classList.add('bg-white', 'text-brand-coffee');
+          });
+          tab.classList.remove('bg-white', 'text-brand-coffee');
+          tab.classList.add('bg-brand-sage', 'text-white', 'shadow-sm');
+
+          const filter = tab.getAttribute('data-filter');
+          renderProducts(filter);
+        });
+      });
+    }
+
+    // 預設美容日期為明天
+    function setDefaultGroomingDate() {
+      const dateInput = document.getElementById('grooming-date');
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const yyyy = tomorrow.getFullYear();
+      const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+      const dd = String(tomorrow.getDate()).padStart(2, '0');
+      dateInput.value = `${yyyy}-${mm}-${dd}`;
+      dateInput.min = `${yyyy}-${mm}-${dd}`;
+    }
+
+    /* ----------------------------------------------------
+     * 4. 購物車核心邏輯 (Cart Functionality)
+     * ---------------------------------------------------- */
+    function setupCartListeners() {
+      const toggleBtn = document.getElementById('cart-toggle-btn');
+      toggleBtn.addEventListener('click', openCartDrawer);
+    }
+
+    function addToCart(productId) {
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+
+      const existingIndex = cart.findIndex(item => item.id === productId);
+      if (existingIndex > -1) {
+        cart[existingIndex].qty += 1;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+
+      updateCartUI();
+      openCartDrawer();
+      showToast(`已將「${product.name}」加入購物車！`, 'success');
+    }
+
+    function updateCartItemQty(productId, delta) {
+      const index = cart.findIndex(item => item.id === productId);
+      if (index === -1) return;
+
+      cart[index].qty += delta;
+      if (cart[index].qty <= 0) {
+        removeFromCart(productId);
+      } else {
+        updateCartUI();
+      }
+    }
+
+    function removeFromCart(productId) {
+      const index = cart.findIndex(item => item.id === productId);
+      if (index > -1) {
+        const removedName = cart[index].name;
+        cart.splice(index, 1);
+        updateCartUI();
+        showToast(`已自購物車移除「${removedName}」`, 'info');
+      }
+    }
+
+    function updateCartUI() {
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const isFreeShipping = subtotal >= FREE_SHIPPING_THRESHOLD || totalItems === 0;
+      const shippingFee = (totalItems === 0 || subtotal >= FREE_SHIPPING_THRESHOLD) ? 0 : DEFAULT_SHIPPING_FEE;
+      const total = subtotal + shippingFee;
+
+      // 更新 Navbar Badge
+      const badge = document.getElementById('cart-badge-count');
+      badge.textContent = totalItems;
+      if (totalItems > 0) {
+        badge.classList.remove('scale-0');
+        badge.classList.add('scale-100');
+      } else {
+        badge.classList.remove('scale-100');
+        badge.classList.add('scale-0');
+      }
+
+      // 更新 Drawer 頂部數量
+      document.getElementById('drawer-item-count').textContent = `${totalItems} 件商品`;
+
+      // 更新免運進度條
+      const bar = document.getElementById('free-shipping-bar');
+      const diffText = document.getElementById('shipping-diff-amount');
+      const progressPercent = Math.min(100, Math.round((subtotal / FREE_SHIPPING_THRESHOLD) * 100));
+      bar.style.width = `${progressPercent}%`;
+
+      if (subtotal >= FREE_SHIPPING_THRESHOLD) {
+        diffText.textContent = '已達成免運優惠！🎉';
+        diffText.className = 'font-bold text-emerald-600';
+      } else {
+        const remaining = FREE_SHIPPING_THRESHOLD - subtotal;
+        diffText.textContent = `還差 NT$ ${remaining.toLocaleString()}`;
+        diffText.className = 'font-bold text-brand-warmOrange';
+      }
+
+      // 更新結帳金額小計
+      document.getElementById('cart-subtotal').textContent = `NT$ ${subtotal.toLocaleString()}`;
+      document.getElementById('cart-shipping-fee').textContent = shippingFee === 0 
+        ? (totalItems === 0 ? 'NT$ 0' : '免運費 $0') 
+        : `NT$ ${shippingFee}`;
+      document.getElementById('cart-total').textContent = `NT$ ${total.toLocaleString()}`;
+
+      // 渲染商品列表
+      const container = document.getElementById('cart-items-container');
+      const checkoutBtn = document.getElementById('checkout-trigger-btn');
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="h-full flex flex-col items-center justify-center text-center p-6 text-brand-coffee/50">
+            <div class="w-20 h-20 rounded-full bg-brand-creamDark flex items-center justify-center text-3xl mb-4 text-brand-coffee/40">
+              <i class="fa-solid fa-basket-shopping"></i>
+            </div>
+            <p class="font-bold text-base text-brand-darkCoffee">購物車目前空空如也</p>
+            <p class="text-xs text-brand-coffee/60 mt-1 max-w-xs">快去幫家裡的毛寶貝選購鮮美的純肉零食吧！</p>
+          </div>
+        `;
+        checkoutBtn.disabled = true;
+        checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      } else {
+        checkoutBtn.disabled = false;
+        checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+        container.innerHTML = cart.map(item => `
+          <div class="flex items-center gap-3 p-3 rounded-2xl bg-brand-cream/60 border border-brand-creamDark">
+            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-xl object-cover flex-shrink-0">
+            <div class="flex-1 min-w-0">
+              <h4 class="text-xs font-bold text-brand-darkCoffee truncate">${item.name}</h4>
+              <p class="text-[11px] text-brand-coffee/60">NT$ ${item.price.toLocaleString()}</p>
+              
+              <!-- 數量控制 -->
+              <div class="flex items-center gap-2 mt-2">
+                <button onclick="updateCartItemQty(${item.id}, -1)" class="w-6 h-6 rounded-md bg-white border border-brand-creamDark flex items-center justify-center text-xs hover:bg-brand-creamDark text-brand-coffee">
+                  <i class="fa-solid fa-minus text-[10px]"></i>
+                </button>
+                <span class="text-xs font-bold w-6 text-center text-brand-darkCoffee">${item.qty}</span>
+                <button onclick="updateCartItemQty(${item.id}, 1)" class="w-6 h-6 rounded-md bg-white border border-brand-creamDark flex items-center justify-center text-xs hover:bg-brand-creamDark text-brand-coffee">
+                  <i class="fa-solid fa-plus text-[10px]"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="text-right">
+              <p class="text-xs font-black text-brand-warmOrange">NT$ ${(item.price * item.qty).toLocaleString()}</p>
+              <button onclick="removeFromCart(${item.id})" class="text-brand-coffee/40 hover:text-red-500 text-xs mt-2 transition-colors p-1" title="刪除商品">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    function openCartDrawer() {
+      const backdrop = document.getElementById('cart-drawer-backdrop');
+      const panel = document.getElementById('cart-drawer-panel');
+      backdrop.classList.remove('opacity-0', 'pointer-events-none');
+      backdrop.classList.add('opacity-100');
+      panel.classList.remove('translate-x-full');
+      panel.classList.add('translate-x-0');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCartDrawer() {
+      const backdrop = document.getElementById('cart-drawer-backdrop');
+      const panel = document.getElementById('cart-drawer-panel');
+      backdrop.classList.remove('opacity-100');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+      panel.classList.remove('translate-x-0');
+      panel.classList.add('translate-x-full');
+      document.body.style.overflow = '';
+    }
+
+    /* ----------------------------------------------------
+     * 5. 線上結帳彈窗 (Checkout Modal)
+     * ---------------------------------------------------- */
+    function openCheckoutModal() {
+      if (cart.length === 0) return;
+      closeCartDrawer();
+
+      const modal = document.getElementById('checkout-modal');
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const shippingFee = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : DEFAULT_SHIPPING_FEE;
+      const total = subtotal + shippingFee;
+
+      // 預載登入會員資料 (若已登入)
+      if (currentUser) {
+        document.getElementById('order-email').value = currentUser.email || '';
+      }
+
+      document.getElementById('checkout-summary-count').textContent = `${totalItems} 件商品`;
+      document.getElementById('checkout-summary-total').textContent = `NT$ ${total.toLocaleString()}`;
+
+      const previewContainer = document.getElementById('checkout-items-preview');
+      previewContainer.innerHTML = cart.map(i => `
+        <div class="flex justify-between">
+          <span class="truncate">${i.name} × ${i.qty}</span>
+          <span class="font-semibold">NT$ ${(i.price * i.qty).toLocaleString()}</span>
+        </div>
+      `).join('');
+
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCheckoutModal() {
+      const modal = document.getElementById('checkout-modal');
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      document.body.style.overflow = '';
+    }
+
+    function handleCheckoutSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('order-name').value;
+      const phone = document.getElementById('order-phone').value;
+      const address = document.getElementById('order-address').value;
+      const payment = document.getElementById('order-payment').value;
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const total = subtotal >= FREE_SHIPPING_THRESHOLD ? subtotal : subtotal + DEFAULT_SHIPPING_FEE;
+
+      // 模擬結帳完成
+      closeCheckoutModal();
+      cart = [];
+      updateCartUI();
+
+      alert(`🎉 恭喜 ${name} 家長！訂單已成功建立！\n\n訂單編號：PW-${Date.now().toString().slice(-6)}\n總金額：NT$ ${total.toLocaleString()}\n付款方式：${payment}\n收件地址：${address}\n聯絡電話：${phone}\n\n我們已發送確認通知至您的信箱，將以低溫黑貓迅速為毛孩直送出貨！`);
+      showToast('訂單送出成功！感謝您的選購', 'success');
+    }
+
+    /* ----------------------------------------------------
+     * 6. 美容方案選擇與預約 (Grooming Booking)
+     * ---------------------------------------------------- */
+    function selectGroomingService(serviceName) {
+      const select = document.getElementById('grooming-service-select');
+      select.value = serviceName;
+      document.getElementById('grooming-form').scrollIntoView({ behavior: 'smooth' });
+      showToast(`已為您切換美容方案為「${serviceName}」`, 'info');
+    }
+
+    function handleGroomingSubmit(event) {
+      event.preventDefault();
+      const service = document.getElementById('grooming-service-select').value;
+      const owner = document.getElementById('grooming-owner-name').value;
+      const phone = document.getElementById('grooming-owner-phone').value;
+      const pet = document.getElementById('grooming-pet-name').value;
+      const date = document.getElementById('grooming-date').value;
+      const time = document.getElementById('grooming-time').value;
+
+      alert(`🐾 美容預約已初步受理！\n\n親愛的 ${owner} 您好：\n您已為「${pet}」預約【${service}】\n預約時段：${date} ${time}\n\n萌掌心美容顧問將於 2 小時內以 ${phone} 與您電話聯繫確認毛況與專屬細節！`);
+      
+      document.getElementById('grooming-form').reset();
+      setDefaultGroomingDate();
+      showToast('美容預約已送出，專員將盡速與您聯繫！', 'success');
+    }
+
+    /* ----------------------------------------------------
+     * 7. 會員登入 / 註冊彈窗 (Auth CRM Modal)
+     * ---------------------------------------------------- */
+    const authOpenBtn = document.getElementById('auth-open-btn');
+    authOpenBtn.addEventListener('click', () => openAuthModal('login'));
+
+    function openAuthModal(mode = 'login') {
+      authMode = mode;
+      switchAuthTab(mode);
+      const modal = document.getElementById('auth-modal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAuthModal() {
+      const modal = document.getElementById('auth-modal');
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      document.body.style.overflow = '';
+    }
+
+    function switchAuthTab(mode) {
+      authMode = mode;
+      const tabLogin = document.getElementById('tab-login');
+      const tabRegister = document.getElementById('tab-register');
+      const extraFields = document.getElementById('register-extra-fields');
+      const submitBtn = document.getElementById('auth-submit-btn');
+      const petNameInput = document.getElementById('auth-pet-name');
+
+      if (mode === 'login') {
+        tabLogin.className = 'pb-3 text-sm font-bold border-b-2 border-brand-warmOrange text-brand-warmOrange transition-all flex-1 text-center';
+        tabRegister.className = 'pb-3 text-sm font-bold border-b-2 border-transparent text-brand-coffee/60 hover:text-brand-coffee transition-all flex-1 text-center';
+        extraFields.classList.add('hidden');
+        petNameInput.removeAttribute('required');
+        submitBtn.textContent = '立即登入';
+      } else {
+        tabRegister.className = 'pb-3 text-sm font-bold border-b-2 border-brand-warmOrange text-brand-warmOrange transition-all flex-1 text-center';
+        tabLogin.className = 'pb-3 text-sm font-bold border-b-2 border-transparent text-brand-coffee/60 hover:text-brand-coffee transition-all flex-1 text-center';
+        extraFields.classList.remove('hidden');
+        petNameInput.setAttribute('required', 'true');
+        submitBtn.textContent = '註冊並領取 $100 首購折價券';
+      }
+    }
+
+    function handleAuthSubmit(event) {
+      event.preventDefault();
+      const email = document.getElementById('auth-email').value;
+      const petName = document.getElementById('auth-pet-name').value || '毛孩家長';
+
+      currentUser = {
+        email: email,
+        petName: authMode === 'register' ? petName : '毛孩家長'
+      };
+
+      updateNavbarUserState();
+      closeAuthModal();
+
+      if (authMode === 'register') {
+        showToast(`歡迎加入！${petName} 的專屬好禮已歸戶`, 'success');
+      } else {
+        showToast(`歡迎回來，${currentUser.petName}！`, 'success');
+      }
+    }
+
+    function updateNavbarUserState() {
+      const container = document.getElementById('auth-button-container');
+      if (currentUser) {
+        container.innerHTML = `
+          <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-full bg-brand-sage text-white flex items-center justify-center font-bold text-xs shadow-sm">
+              <i class="fa-solid fa-shield-dog"></i>
+            </div>
+            <div class="hidden sm:block text-left">
+              <p class="text-xs font-bold text-brand-darkCoffee">${currentUser.petName}</p>
+              <button onclick="handleLogout()" class="text-[10px] text-brand-warmOrange hover:underline">登出</button>
+            </div>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <button id="auth-open-btn" onclick="openAuthModal('login')" class="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full border border-brand-coffee/30 text-brand-coffee hover:bg-brand-coffee hover:text-white transition-all shadow-sm">
+            <i class="fa-regular fa-user text-xs"></i>
+            <span id="auth-btn-label">登入 / 註冊</span>
+          </button>
+        `;
+      }
+    }
+
+    function handleLogout() {
+      currentUser = null;
+      updateNavbarUserState();
+      showToast('您已安全登出', 'info');
+    }
+
+    /* ----------------------------------------------------
+     * 8. 手機版選單切換與輔助功能
+     * ---------------------------------------------------- */
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    mobileMenuBtn.addEventListener('click', toggleMobileNav);
+
+    function toggleMobileNav() {
+      const nav = document.getElementById('mobile-nav');
+      nav.classList.toggle('hidden');
+    }
+
+    function handleNewsletterSubmit(event) {
+      event.preventDefault();
+      alert('💌 感謝訂閱萌掌心毛孩生活專欄！$100 首購折價券折扣碼已寄送至您的信箱：WELCOME100');
+      event.target.reset();
+      showToast('電子報訂閱成功！', 'success');
+    }
+
+    // 浮動 Toast 提示
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      
+      const icon = type === 'success' 
+        ? '<i class="fa-solid fa-circle-check text-emerald-500"></i>' 
+        : '<i class="fa-solid fa-circle-info text-brand-warmOrange"></i>';
+
+      toast.className = 'flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-brand-darkCoffee/95 text-white text-xs font-medium shadow-2xl backdrop-blur-md transform transition-all duration-300 translate-y-4 opacity-0 pointer-events-auto border border-white/10';
+      toast.innerHTML = `${icon}<span>${message}</span>`;
+      
+      container.appendChild(toast);
+
+      // 動畫進入
+      setTimeout(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      }, 10);
+
+      // 3 秒後漸出消滅
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+  </script>
+</body>
+</html>
